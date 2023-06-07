@@ -1,0 +1,149 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #fff;
+  /* background-color: #f9f7f7; */
+}
+
+.dark {
+  background-color: #0d1117;
+}
+
+[data-theme='dark'] body {
+  background-color: #0d1117;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #d8d8d8;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb:hover {
+  background: #c9c9c9;
+  border-radius: 10px;
+}
+
+/* CSSTransition classes  */
+.menu {
+  width: 100%;
+}
+
+.menu-primary-enter {
+  position: absolute;
+  transform: translateX(-110%);
+}
+.menu-primary-enter-active {
+  transform: translateX(0%);
+  transition: all var(--speed) ease;
+}
+.menu-primary-exit {
+  position: absolute;
+}
+.menu-primary-exit-active {
+  transform: translateX(-110%);
+  transition: all var(--speed) ease;
+}
+
+.menu-secondary-enter {
+  transform: translateX(110%);
+}
+.menu-secondary-enter-active {
+  transform: translateX(0%);
+  transition: all var(--speed) ease;
+}
+.menu-secondary-exit {
+}
+.menu-secondary-exit-active {
+  transform: translateX(110%);
+  transition: all var(--speed) ease;
+}
+
+select {
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px solid #e2e8f0;
+}
+
+.dark select {
+  background-color: #161b22;
+  color: #c9d1d9;
+  border: 1px solid #5b6473;
+}
+
+select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.5);
+}
+
+.dark select:focus {
+  border-color: #1f6feb;
+  box-shadow: 0 0 0 3px rgba(31, 111, 235, 0.5);
+}
+
+.ql-editor {
+  font-size: 18px;
+}
+
+.ql-toolbar {
+  border: 2px solid #616161;
+  border-radius: 0;
+  width: 100%;
+  padding: 3px;
+  outline: none;
+}
+.ql-toolbar:focus {
+  border-color: #9e9e9e;
+  outline: none;
+  box-shadow: none;
+}
+
+.ql-container {
+  border: 2px solid #616161;
+  border-radius: 0;
+  width: 100%;
+  padding: 3px;
+  outline: none;
+}
+
+.dark .ql-snow .ql-stroke {
+  stroke: #c9d1d9;
+}
+
+.dark .ql-snow .ql-stroke-miter {
+  fill: #c9d1d9;
+}
+
+.dark .ql-snow .ql-picker svg {
+  fill: #c9d1d9;
+}
+
+.dark .ql-snow .ql-picker .ql-picker-label {
+  color: #c9d1d9;
+}
+
+.dark .ql-snow .ql-picker-options {
+  border-color: #5b6473;
+}
+
+.dark .ql-snow .ql-picker.ql-expanded .ql-picker-label {
+  border-color: #5b6473;
+}
+
+.dark .ql-snow .ql-picker.ql-expanded .ql-picker-options {
+  border-color: #5b6473;
+}

@@ -1,0 +1,21 @@
+.toast-success-message {
+  background: linear-gradient(to right, #c5ecd0, #96d8a8);
+  color: #1c1d1f;
+  font-size: 16px;
+  width: 100%;
+  padding: 20px 20px 20px 20px;
+  border-radius: 0px;
+  box-shadow: 0px 0px 10px linear-gradient(to right, #b7e7c5, #7fd396);
+  text-align: center;
+}
+
+.toast-error-message {
+  background: linear-gradient(to right, #d2adad, #dda5a5);
+  color: #1c1d1f;
+  font-size: 16px;
+  width: 100%;
+  padding: 20px 20px 20px 20px;
+  border-radius: 0px;
+  box-shadow: 0px 0px 10px linear-gradient(to right, #d4a6a6, #db9b9b);
+  text-align: center;
+}

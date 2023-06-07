@@ -1,0 +1,5 @@
+.yarn
+.next
+dist
+node_modules
+.env.local
