@@ -12,6 +12,8 @@ import CouponContextProvider from './CouponContextProvider';
 import PaymentMethodContextProvider from './PaymentMethodContextProvider';
 import Web3ContextProvider from './Web3ContextProvider';
 
+import SubscriptionContextProvider from './SubscriptionContextProvider';
+
 interface Props {
   children: ReactNode;
 }
@@ -23,8 +25,10 @@ export default function Providers({ children }: Props) {
         <CouponContextProvider>
           <PaymentMethodContextProvider>
             <Web3ContextProvider>
-              {children}
-              <ToastContainer className="bottom-0" position="bottom-right" />
+              <SubscriptionContextProvider>
+                {children}
+                <ToastContainer className="bottom-0" position="bottom-right" />
+              </SubscriptionContextProvider>
             </Web3ContextProvider>
           </PaymentMethodContextProvider>
         </CouponContextProvider>

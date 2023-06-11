@@ -11,6 +11,9 @@ import Testimonials from './components/Testimonials';
 import { Category } from '@/interfaces/Category';
 import Navbar from '@/components/navbar';
 import Footer from '@/components/footer';
+import EarningsCalculator from './components/EarningsCalculator';
+import TestimonialsLeftToRight from './components/TestimonialsLeftToRight';
+import Resources from './components/Resources';
 
 export default async function Home() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_APP_API_URL}/api/category/list/parent/`, {
@@ -32,13 +35,15 @@ export default async function Home() {
     <main>
       <Navbar />
       <Header />
-      <Categories categories={categories} />
       <Stats />
-      <CourseSearch categories={categories} courses={courses} />
+      {/* <CourseSearch categories={categories} courses={courses} /> */}
       <Feature1 />
-      <Testimonials />
       <Feature2 />
       <Feature3 />
+      <EarningsCalculator />
+      <Testimonials />
+      <TestimonialsLeftToRight />
+      <Resources />
       <CTA />
       <Footer />
     </main>

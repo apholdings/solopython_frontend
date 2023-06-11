@@ -1,26 +1,30 @@
-import Image from 'next/image';
+'use client';
+
+import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Button from '../Button';
+import EmailForm from './EmailForm';
 
 const navigation = {
   solutions: [
     { name: 'Cursos en Linea', href: '/courses' },
-    { name: 'Academias', href: '/academies' },
-    { name: 'Entrenamiento', href: '/training' },
-    { name: 'Consultorias', href: '/consulting' },
-    { name: 'Desarrollo', href: '/development' },
-    { name: 'Tienda', href: '/store' },
+    // { name: 'Academias', href: '/academies' },
+    // { name: 'Entrenamiento', href: '/training' },
+    // { name: 'Consultorias', href: '/consulting' },
+    // { name: 'Desarrollo', href: '/development' },
+    // { name: 'Tienda', href: '/store' },
   ],
   support: [
     { name: 'Discord', href: 'https://discord.gg/BcxQwhXjZh' },
     { name: 'Blog', href: '/blog' },
-    { name: 'Videos', href: '/videos' },
-    { name: 'Recursos', href: '/resources' },
+    // { name: 'Videos', href: '/videos' },
+    // { name: 'Recursos', href: '/resources' },
   ],
   company: [
     { name: 'Nosotros', href: '/about' },
-    { name: 'Carreras', href: '/careers' },
-    { name: 'Soporte', href: '/support' },
-    { name: 'Precios', href: '/prices' },
+    { name: 'Contacto', href: '/contact' },
+    // { name: 'Carreras', href: '/careers' },
+    // { name: 'Soporte', href: '/support' },
   ],
   legal: [
     { name: 'Privacy', href: '/privacy' },
@@ -92,30 +96,28 @@ const navigation = {
 };
 
 export default function Footer() {
+  const pathname = usePathname();
   return (
     <footer className="bg-white" aria-labelledby="footer-heading">
       <h2 id="footer-heading" className="sr-only">
         Footer
       </h2>
-      <div className="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
-        <div className="xl:grid xl:grid-cols-3 xl:gap-8">
-          <Image
-            width={100}
-            height={100}
-            className="h-10 w-auto"
-            src="/assets/img/logos/logo2.png"
-            alt="SoloPython"
-          />
+      <div className="border-gray-200 border-t mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
+        <div className="xl:grid xl:grid-cols-2 xl:gap-8">
           <div className="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
             <div className="md:grid md:grid-cols-2 md:gap-8">
               <div>
-                <h3 className="text-md font-semibold leading-6 text-gray-900">Servicios</h3>
+                <h3 className="text-lg font-circular-bold leading-6 text-gray-900">Servicios</h3>
                 <ul className="mt-6 space-y-4">
                   {navigation.solutions.map((item) => (
                     <li key={item.name}>
                       <Link
                         href={item.href}
-                        className="text-sm leading-6 text-gray-600 hover:text-gray-900"
+                        className={`text-md leading-6 font-circular-medium ${
+                          pathname === item.href
+                            ? 'text-blue-500'
+                            : 'text-gray-500 hover:text-gray-900'
+                        }`}
                       >
                         {item.name}
                       </Link>
@@ -124,13 +126,17 @@ export default function Footer() {
                 </ul>
               </div>
               <div className="mt-10 md:mt-0">
-                <h3 className="text-md font-semibold leading-6 text-gray-900">Comunidad</h3>
+                <h3 className="text-lg font-circular-bold leading-6 text-gray-900">Comunidad</h3>
                 <ul className="mt-6 space-y-4">
                   {navigation.support.map((item) => (
                     <li key={item.name}>
                       <Link
                         href={item.href}
-                        className="text-sm leading-6 text-gray-600 hover:text-gray-900"
+                        className={`text-md leading-6 font-circular-medium ${
+                          pathname === item.href
+                            ? 'text-blue-500'
+                            : 'text-gray-500 hover:text-gray-900'
+                        }`}
                       >
                         {item.name}
                       </Link>
@@ -141,13 +147,17 @@ export default function Footer() {
             </div>
             <div className="md:grid md:grid-cols-2 md:gap-8">
               <div>
-                <h3 className="text-md font-semibold leading-6 text-gray-900">Empresa</h3>
+                <h3 className="text-lg font-circular-bold leading-6 text-gray-900">Empresa</h3>
                 <ul className="mt-6 space-y-4">
                   {navigation.company.map((item) => (
                     <li key={item.name}>
                       <Link
                         href={item.href}
-                        className="text-sm leading-6 text-gray-600 hover:text-gray-900"
+                        className={`text-md leading-6 font-circular-medium ${
+                          pathname === item.href
+                            ? 'text-blue-500'
+                            : 'text-gray-500 hover:text-gray-900'
+                        }`}
                       >
                         {item.name}
                       </Link>
@@ -156,13 +166,17 @@ export default function Footer() {
                 </ul>
               </div>
               <div className="mt-10 md:mt-0">
-                <h3 className="text-md font-semibold leading-6 text-gray-900">Legal</h3>
+                <h3 className="text-lg font-circular-bold leading-6 text-gray-900">Legal</h3>
                 <ul className="mt-6 space-y-4">
                   {navigation.legal.map((item) => (
                     <li key={item.name}>
                       <Link
                         href={item.href}
-                        className="text-sm leading-6 text-gray-600 hover:text-gray-900"
+                        className={`text-md leading-6 font-circular-medium ${
+                          pathname === item.href
+                            ? 'text-blue-500'
+                            : 'text-gray-500 hover:text-gray-900'
+                        }`}
                       >
                         {item.name}
                       </Link>
@@ -175,37 +189,16 @@ export default function Footer() {
         </div>
         <div className="mt-16 border-t border-gray-900/10 pt-8 sm:mt-20 lg:mt-24 lg:flex lg:items-center lg:justify-between">
           <div>
-            <h3 className="text-md font-semibold leading-6 text-gray-900">
+            <h3 className="text-lg font-circular-bold leading-6 text-gray-900">
               Suscríbete a nuestro boletín
             </h3>
-            <p className="mt-2 text-md leading-6 text-gray-600">
+            <p className="mt-2 text-md leading-6 text-gray-600 font-circular-light">
               Recibe las últimas noticias, artículos y recursos directamente en tu correo
               electrónico cada semana. Únete a nuestra comunidad y mantente al día con el mundo de
               la programación Python.
             </p>
           </div>
-          <form className="mt-6 sm:flex sm:max-w-md lg:mt-0">
-            <label htmlFor="email-address" className="sr-only">
-              Email address
-            </label>
-            <input
-              type="email"
-              name="email-address"
-              id="email-address"
-              autoComplete="email"
-              required
-              className="w-full min-w-0 appearance-none rounded-md border-0 bg-white px-3 py-1.5 text-base text-gray-900 shadow-sm ring-1 ring-inset ring-gray-200 placeholder:text-gray-400  focus:ring-none focus:outline-none focus:border-none  sm:w-56 sm:text-sm sm:leading-6"
-              placeholder="Correo Electronico"
-            />
-            <div className="mt-4 sm:ml-4 sm:mt-0 sm:flex-shrink-0">
-              <button
-                type="submit"
-                className="flex w-full items-center justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
-              >
-                Suscribiete
-              </button>
-            </div>
-          </form>
+          <EmailForm />
         </div>
         <div className="mt-8 border-t border-gray-900/10 pt-8 md:flex md:items-center md:justify-between">
           <div className="flex space-x-6 md:order-2">

@@ -1,6 +1,8 @@
 import Footer from '@/components/footer';
 import Navbar from '@/components/navbar';
 
+import './styles/checkout.css';
+
 export const metadata = {
   title: 'Checkout - ',
   description:

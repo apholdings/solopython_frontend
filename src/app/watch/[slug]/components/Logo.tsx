@@ -8,7 +8,7 @@ export default function Logo() {
       width={256}
       height={256}
       className="h-8 w-auto"
-      src="/assets/img/logos/logo2.png"
+      src="/assets/img/logos/logo.png"
       alt="Your Company"
     />
   );

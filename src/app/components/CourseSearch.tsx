@@ -44,7 +44,7 @@ interface CourseSearchProps {
 
 export default function CourseSearch({ categories, courses }: CourseSearchProps) {
   const [searchBy, setSearchBy] = useState('');
-  const debouncedSearchTerm = useDebounce(searchBy, 1000); // Un segundo de retraso
+  const debouncedSearchTerm = useDebounce(searchBy, 1000);
 
   const [selectedSortingOption, setSelectedSortingOption] = useState(null);
   function handleSortChange(option) {
@@ -91,52 +91,50 @@ export default function CourseSearch({ categories, courses }: CourseSearchProps)
     });
   }
 
-  const fetchCourses = useCallback(async () => {
-    const params = new URLSearchParams();
-    Object.entries(selectedFilters).forEach(([key, values]) => {
-      values.forEach((value) => {
-        params.append(key, value);
+  const fetchCourses = useCallback(
+    async (searchBy: string) => {
+      const params = new URLSearchParams();
+      Object.entries(selectedFilters).forEach(([key, values]) => {
+        values.forEach((value) => {
+          params.append(key, value);
+        });
       });
-    });
 
-    // Añade la opción de clasificación seleccionada a los parámetros de la solicitud
-    if (selectedSortingOption) {
-      params.append('sorting', selectedSortingOption);
-    }
+      // Añade la opción de clasificación seleccionada a los parámetros de la solicitud
+      if (selectedSortingOption) {
+        params.append('sorting', selectedSortingOption);
+      }
 
-    if (searchBy) {
-      params.append('search', searchBy);
-    }
+      if (searchBy) {
+        params.append('search', searchBy);
+      }
 
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_APP_API_URL}/api/courses/list/?${params.toString()}`,
-    );
-    const data = await res.json();
-    setFetchedCourses(data.results); // actualizar el estado con los cursos obtenidos
-  }, [selectedFilters, selectedSortingOption]);
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_APP_API_URL}/api/courses/list/?${params.toString()}`,
+      );
+      const data = await res.json();
+      setFetchedCourses(data.results); // actualizar el estado con los cursos obtenidos
+    },
+    [selectedFilters, selectedSortingOption],
+  );
 
   useEffect(() => {
-    fetchCourses();
+    fetchCourses(searchBy);
   }, [fetchCourses]);
 
-  // useEffect(() => {
-  //   if (debouncedSearchTerm) {
-  //     fetchCourses();
-  //   }
-  // }, [debouncedSearchTerm]); // Añadir debouncedSearchTerm como dependencia
+  const handleSearchCourse = async (e: any) => {
+    e.preventDefault();
+    fetchCourses(searchBy);
+  };
+
+  useEffect(() => {
+    if (debouncedSearchTerm) {
+      fetchCourses(debouncedSearchTerm);
+    }
+  }, [debouncedSearchTerm]);
 
   return (
     <div className="bg-white">
-      <div className="px-4 py-16 text-center sm:px-6 lg:px-8">
-        <h1 className="text-5xl font-bold tracking-tight text-gray-900">
-          Descubre el curso perfecto para ti.
-        </h1>
-        <p className="mx-auto mt-4 max-w-xl text-lg text-gray-500">
-          Aquí puedes buscar por nombre de curso, tema o instructor. Expande tus habilidades y
-          conocimientos a tu propio ritmo y desde la comodidad de tu casa. ¡Es hora de explorar,
-          aprender y crecer!
-        </p>
-      </div>
       {/* Filters */}
       <Disclosure
         as="section"
@@ -161,6 +159,28 @@ export default function CourseSearch({ categories, courses }: CourseSearchProps)
               <button onClick={clearFilters} type="button" className="text-gray-500">
                 Clear all
               </button>
+            </div>
+            <div className="pl-6 flex flex-1 ">
+              <form className="relative w-full" onSubmit={handleSearchCourse}>
+                <label htmlFor="search-field" className="sr-only">
+                  Search
+                </label>
+                <MagnifyingGlassIcon
+                  className="pointer-events-none  absolute inset-y-0 left-0 h-full w-5 text-gray-400"
+                  aria-hidden="true"
+                />
+                <input
+                  id="search-field"
+                  className="block h-full w-full border-0 py-0 pl-8 pr-16 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
+                  placeholder="Search..."
+                  type="search"
+                  name="searchBy"
+                  value={searchBy}
+                  onChange={(e) => {
+                    setSearchBy(e.target.value);
+                  }}
+                />
+              </form>
             </div>
           </div>
         </div>
@@ -250,11 +270,11 @@ export default function CourseSearch({ categories, courses }: CourseSearchProps)
                       <input
                         id={`category-${optionIdx}`}
                         name="category[]"
-                        value={category.id}
+                        value={category.slug}
                         type="checkbox"
                         className="h-4 w-4 flex-shrink-0 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                        checked={selectedFilters.category.includes(category.id)}
-                        onChange={() => handleCheckboxChange('category', category.id)}
+                        checked={selectedFilters.category.includes(category.slug)}
+                        onChange={() => handleCheckboxChange('category', category.slug)}
                       />
                       <label
                         htmlFor={`category-${optionIdx}`}
@@ -321,7 +341,7 @@ export default function CourseSearch({ categories, courses }: CourseSearchProps)
       </Disclosure>
 
       {/* Courses List */}
-      <div className="bg-white py-12">
+      <div className="bg-white">
         <CoursesList courses={fetchedCourses || courses} />
       </div>
     </div>

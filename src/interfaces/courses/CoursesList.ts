@@ -26,4 +26,6 @@ export interface ICourseList {
   token_id: string;
   updated_at: string;
   video: string | null;
+  student_rating: number;
+  student_rating_no: number;
 }

@@ -12,6 +12,7 @@ import {
 import Link from 'next/link';
 import { ToastSuccess } from '../toast/ToastSuccess';
 import { ToastError } from '../toast/ToastError';
+import Button from '../Button';
 
 interface RegistermodalProps {
   open: boolean;
@@ -95,7 +96,7 @@ const Registermodal: React.FC<RegistermodalProps> = ({
 
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={setOpen}>
+      <Dialog as="div" className="relative z-50" onClose={setOpen}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -121,7 +122,7 @@ const Registermodal: React.FC<RegistermodalProps> = ({
             >
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
                 <div className="sm:mx-auto sm:w-full sm:max-w-md ">
-                  <p className="mb-6 pt-8 text-center text-lg font-bold tracking-tight text-gray-900 dark:text-dark-txt">
+                  <p className="mb-6 pt-8 text-center text-xl font-circular-bold dark:text-dark-txt">
                     Signup and start your adventure
                   </p>
                   <div className="relative">
@@ -145,7 +146,7 @@ const Registermodal: React.FC<RegistermodalProps> = ({
                           value={firstName}
                           onChange={(e) => onChange(e)}
                           required
-                          className="text-md duration block w-full border focus:ring-none focus:outline-none border-dark py-3 pl-10 font-medium shadow-neubrutalism-xs transition ease-in-out dark:bg-dark-second dark:text-dark-txt"
+                          className="text-md duration block w-full border rounded focus:ring-none focus:outline-none border-dark py-3 pl-10 font-circular-light transition ease-in-out dark:bg-dark-second dark:text-dark-txt"
                           placeholder="First name"
                         />
                       </div>
@@ -160,7 +161,7 @@ const Registermodal: React.FC<RegistermodalProps> = ({
                           value={lastName}
                           onChange={(e) => onChange(e)}
                           required
-                          className="text-md duration block w-full border focus:ring-none focus:outline-none border-dark py-3 pl-10 font-medium shadow-neubrutalism-xs transition ease-in-out dark:bg-dark-second dark:text-dark-txt"
+                          className="text-md duration block w-full border rounded focus:ring-none focus:outline-none border-dark py-3 pl-10 font-circular-light transition ease-in-out dark:bg-dark-second dark:text-dark-txt"
                           placeholder="Last name"
                         />
                       </div>
@@ -178,7 +179,7 @@ const Registermodal: React.FC<RegistermodalProps> = ({
                           value={username}
                           onChange={(e) => onChange(e)}
                           required
-                          className="text-md duration block w-full border focus:ring-none focus:outline-none border-dark py-3 pl-10 font-medium shadow-neubrutalism-xs transition ease-in-out dark:bg-dark-second dark:text-dark-txt"
+                          className="text-md duration block w-full border rounded focus:ring-none focus:outline-none border-dark py-3 pl-10 font-circular-light transition ease-in-out dark:bg-dark-second dark:text-dark-txt"
                           placeholder="Username"
                         />
                       </div>
@@ -193,7 +194,7 @@ const Registermodal: React.FC<RegistermodalProps> = ({
                           value={email}
                           onChange={(e) => onChange(e)}
                           required
-                          className="text-md duration block w-full border focus:ring-none focus:outline-none border-dark py-3 pl-10 font-medium shadow-neubrutalism-xs transition ease-in-out dark:bg-dark-second dark:text-dark-txt"
+                          className="text-md duration block w-full border rounded focus:ring-none focus:outline-none border-dark py-3 pl-10 font-circular-light transition ease-in-out dark:bg-dark-second dark:text-dark-txt"
                           placeholder="email@example.com"
                         />
                       </div>
@@ -208,7 +209,7 @@ const Registermodal: React.FC<RegistermodalProps> = ({
                           value={password}
                           onChange={(e) => onChange(e)}
                           required
-                          className="text-md duration block w-full border focus:ring-none focus:outline-none border-dark py-3 pl-10 font-medium shadow-neubrutalism-xs transition ease-in-out dark:bg-dark-second dark:text-dark-txt"
+                          className="text-md duration block w-full border rounded focus:ring-none focus:outline-none border-dark py-3 pl-10 font-circular-light transition ease-in-out dark:bg-dark-second dark:text-dark-txt"
                           placeholder="Password"
                         />
                       </div>
@@ -223,7 +224,7 @@ const Registermodal: React.FC<RegistermodalProps> = ({
                           value={rePassword}
                           onChange={(e) => onChange(e)}
                           required
-                          className="text-md duration block w-full border focus:ring-none focus:outline-none border-dark py-3 pl-10 font-medium shadow-neubrutalism-xs transition ease-in-out dark:bg-dark-second dark:text-dark-txt"
+                          className="text-md duration block w-full border rounded focus:ring-none focus:outline-none border-dark py-3 pl-10 font-circular-light transition ease-in-out dark:bg-dark-second dark:text-dark-txt"
                           placeholder="Repeat Password"
                         />
                       </div>
@@ -281,48 +282,13 @@ const Registermodal: React.FC<RegistermodalProps> = ({
 
                       <div>
                         {loading ? (
-                          <button
-                            type="button"
-                            className="text-md focus:ring-none inline-flex 
-                      w-full
-                      items-center
-                      justify-center 
-                      border
-                      border-dark-bg 
-                    bg-white dark:bg-dark-primary rounded-2xl dark:text-dark-txt
-                      px-4 
-                      py-3 
-                      text-sm 
-                      font-bold
-                      text-dark
-                      shadow-neubrutalism-sm transition
-                      duration-300
-                      ease-in-out  hover:-translate-x-0.5  hover:-translate-y-0.5  hover:bg-gray-50 hover:shadow-neubrutalism-md "
-                          >
+                          <Button className="w-full" type="button">
                             <CircleLoader loading={loading} size={25} color="#1c1d1f" />
-                          </button>
+                          </Button>
                         ) : (
-                          <button
-                            type="submit"
-                            className="
-                    text-md focus:ring-none inline-flex 
-                    w-full
-                    items-center
-                    justify-center 
-                    border
-                    border-dark-bg 
-                    bg-white dark:bg-dark-primary rounded-2xl dark:text-dark-txt
-                    px-4 
-                    py-3 
-                    text-sm 
-                    font-bold
-                    text-dark
-                    shadow-neubrutalism-sm transition
-                    duration-300
-                    ease-in-out  hover:-translate-x-0.5  hover:-translate-y-0.5  hover:bg-gray-50 hover:shadow-neubrutalism-md  "
-                          >
+                          <Button className="w-full" type="submit">
                             Register
-                          </button>
+                          </Button>
                         )}
                       </div>
                     </form>
@@ -336,7 +302,7 @@ const Registermodal: React.FC<RegistermodalProps> = ({
                             setOpenResendActivation(true);
                             setOpen(false);
                           }}
-                          className="text-md font-medium text-blue-500 dark:text-dark-accent hover:text-blue-600"
+                          className="text-md font-circular-book font-dark-accent hover:text-blue-600"
                         >
                           Resend activation email
                         </button>
@@ -352,7 +318,7 @@ const Registermodal: React.FC<RegistermodalProps> = ({
                             setOpenLogin(true);
                             setOpen(false);
                           }}
-                          className="text-lg font-medium text-blue-500 dark:text-dark-accent underline hover:text-blue-600"
+                          className="text-md font-circular-book font-dark-accent hover:text-blue-600"
                         >
                           Login
                         </button>

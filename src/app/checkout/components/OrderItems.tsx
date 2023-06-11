@@ -1,15 +1,23 @@
 'use client';
 
 import CartItem from '@/components/navbar/CartItem';
+import TierCartItem from '@/components/navbar/TierCartItem';
 import CartContext from '@/context/cartContext';
+import { ITier } from '@/interfaces/tiers/Tier';
 import { fetchClearCart } from '@/utils/api/clearCart';
 import { fetchCartItems } from '@/utils/api/fetchCartItems';
 import { fetchCartTotal } from '@/utils/api/fetchCartTotal';
+import { CheckIcon } from '@heroicons/react/20/solid';
+import axios from 'axios';
 import { useSession } from 'next-auth/react';
-import { useContext, useEffect } from 'react';
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
+import { useCallback, useContext, useEffect, useState } from 'react';
 
 export default function OrderItems() {
   const { data: session } = useSession();
+
+  const searchParams = useSearchParams();
 
   const {
     items,
@@ -90,15 +98,22 @@ export default function OrderItems() {
 
   return (
     <>
-      {items.length > 0 ? (
+      {items?.length > 0 && (
         <div className="flow-root">
           <ul role="list" className="-my-6 divide-y divide-gray-200">
-            {items.map((item, idx) => (
-              <CartItem item={item} key={idx} />
-            ))}
+            {items.map((item, idx) => {
+              if (item.tier) {
+                return <TierCartItem item={item} key={idx} />;
+              } else if (item.course) {
+                return <CartItem item={item} key={idx} />;
+              }
+              // Add more conditions for other item types if needed
+              return null;
+            })}
           </ul>
         </div>
-      ) : (
+      )}{' '}
+      {items?.length === 0 && (
         <div className="my-4 text-center">
           <svg
             className="mx-auto h-12 w-12 text-gray-400 dark:text-dark-txt"

@@ -12,6 +12,7 @@ import { fetchCartTotal } from '@/utils/api/fetchCartTotal';
 import Button from '../Button';
 import { fetchClearCart } from '@/utils/api/clearCart';
 import CartItem from './CartItem';
+import TierCartItem from './TierCartItem';
 
 export default function ShoppingCart() {
   const [open, setOpen] = useState(false);
@@ -136,7 +137,7 @@ export default function ShoppingCart() {
         )}
       </button>
       <Transition.Root show={open} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={setOpen}>
+        <Dialog as="div" className="relative z-50" onClose={setOpen}>
           <Transition.Child
             as={Fragment}
             enter="ease-in-out duration-500"
@@ -197,9 +198,15 @@ export default function ShoppingCart() {
                         <div className="mt-8">
                           <div className="flow-root">
                             <ul role="list" className="-my-6 divide-y divide-gray-200">
-                              {items.map((item, idx) => (
-                                <CartItem item={item} key={idx} />
-                              ))}
+                              {items.map((item, idx) => {
+                                if (item.tier) {
+                                  return <TierCartItem item={item} key={idx} />;
+                                } else if (item.course) {
+                                  return <CartItem item={item} key={idx} />;
+                                }
+                                // Add more conditions for other item types if needed
+                                return null;
+                              })}
                             </ul>
                           </div>
                         </div>
@@ -208,7 +215,7 @@ export default function ShoppingCart() {
                       <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                         <div className="flex justify-between text-base font-medium text-gray-900">
                           <p>Subtotal</p>
-                          <p>${totalPrice}</p>
+                          <p>S/ {totalPrice}</p>
                         </div>
                         <p className="mt-0.5 text-sm text-gray-500">
                           Shipping and taxes calculated at checkout.

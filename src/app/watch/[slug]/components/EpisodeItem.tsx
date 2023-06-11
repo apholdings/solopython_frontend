@@ -7,6 +7,7 @@ import { FolderOpenIcon, PlayCircleIcon } from '@heroicons/react/24/solid';
 import { IEpisode } from '@/interfaces/courses/Episode';
 import { IQuestion } from '@/interfaces/courses/Question';
 import { DocumentIcon } from '@heroicons/react/20/solid';
+import { CheckCircleIcon } from '@heroicons/react/24/outline';
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ');
@@ -62,25 +63,19 @@ export default function EpisodeItem({
       <div
         onClick={handleClick}
         className={`
-        ${episode_id == episode?.id ? 'bg-gray-200 dark:bg-dark-third' : ''}
-        hover:bg-watchlist-hover flex cursor-pointer items-center justify-between px-3 py-3 hover:bg-gray-200 dark:hover:bg-dark-third `}
+        ${episode_id == episode?.id ? 'bg-gray-100 dark:bg-dark-third' : ''}
+        hover:bg-watchlist-hover flex cursor-pointer items-center justify-between px-3 py-3 hover:bg-gray-100 dark:hover:bg-dark-third `}
       >
-        <div className="-mx-4 -mt-4 flex flex-wrap items-center justify-between sm:flex-nowrap">
-          <div className="ml-4 mt-4">
-            <div className="flex w-full">
-              <div
-                className="flex-shrink-0"
-                onClick={() => {
-                  handleViewedEpisode();
-                }}
-                onMouseEnter={() => setHovered(true)}
-                onMouseLeave={() => setHovered(false)}
-              >
-                <i className={`bx bx-checkbox text-3xl ${hovered ? 'text-gray-400' : ''}`} />
-              </div>
+        <div className="ml-1 flex flex-wrap items-center justify-between sm:flex-nowrap">
+          <div className="flex w-full">
+            <div className="flex-shrink-0">
+              <CheckCircleIcon
+                className={`${hovered ? 'text-green-500' : 'text-gray-400'} w-auto h-5`}
+              />
             </div>
           </div>
         </div>
+
         <div className="w-full">
           <div className="-ml-4 -mt-4 flex flex-wrap items-center justify-between sm:flex-nowrap">
             <div className="ml-6 mt-4">

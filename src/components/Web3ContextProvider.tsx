@@ -12,12 +12,10 @@ export default function Web3ContextProvider({ children }: Props) {
   const [web3, setWeb3] = useState<Web3 | null>(null);
 
   // Initialize from localStorage or default to '1' and 'ETH'
-  const [networkId, setNetworkId] = useState<string | null>(
-    () => localStorage.getItem('networkId') || '1',
-  );
-  const [nativeToken, setNativeToken] = useState<string | null>(
-    () => localStorage.getItem('nativeToken') || 'ETH',
-  );
+  const [networkId, setNetworkId] = useState<string | null>();
+  // () => localStorage.getItem('networkId') || '1',
+  const [nativeToken, setNativeToken] = useState<string | null>();
+  // () => localStorage.getItem('nativeToken') || 'ETH',
 
   const [nativeBalance, setNativeBalance] = useState<string | null>(null);
 

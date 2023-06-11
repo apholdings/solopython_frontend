@@ -46,12 +46,15 @@ export const authOptions = {
           throw new Error(`Error on /auth/users/wallet/me/: ${userRes.statusText}`);
         }
 
+        console.log(userData);
+
         const walletData = await walletRes.json();
         const user = {
           id: userData.id,
           email: userData.email,
           name: userData.username,
           image: userData.picture,
+          banner: userData.banner,
           role: userData.role,
           verified: userData.verified,
           accessToken: access,

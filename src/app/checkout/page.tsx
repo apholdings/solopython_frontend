@@ -42,7 +42,7 @@ export default function Page() {
                 <OrderItems />
               </div>
             </div>
-            <div className="col-span-1 items-center justify-center dark:bg-dark-second bg-gray-100 text-center">
+            <div className="col-span-1 items-center justify-center dark:bg-dark-second bg-gray-50 text-center">
               <div className="sticky top-0 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className=" mt-0 py-3 sm:flex ">
                   <div className="font-recife-bold text-2xl leading-6 " />

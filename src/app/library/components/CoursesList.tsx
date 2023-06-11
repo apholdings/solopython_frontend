@@ -7,10 +7,21 @@ import axios from 'axios';
 import StandardPagination from '@/components/pagination/StandardPagination';
 import { useDebounce } from '@/hooks/DebounceHook';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { ChevronDownIcon, FunnelIcon } from '@heroicons/react/20/solid';
+import {
+  ChevronDownIcon,
+  FunnelIcon,
+  Bars3Icon,
+  BellIcon,
+  MagnifyingGlassIcon,
+} from '@heroicons/react/20/solid';
 import { Category } from '@/interfaces/Category';
 
-function classNames(...classes) {
+const userNavigation = [
+  { name: 'Your profile', href: '#' },
+  { name: 'Sign out', href: '#' },
+];
+
+function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ');
 }
 
@@ -98,56 +109,64 @@ export default function CoursesList({ categories }: PageProps) {
     });
   }
 
-  const fetchCourses = useCallback(async () => {
-    if (!session?.user?.accessToken) {
-      console.error('Access token not available');
-      return;
-    }
+  const fetchCourses = useCallback(
+    async (searchBy) => {
+      if (!session?.user?.accessToken) {
+        console.error('Access token not available');
+        return;
+      }
 
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `JWT ${session.user.accessToken}`,
-      },
-    };
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `JWT ${session.user.accessToken}`,
+        },
+      };
 
-    const params = new URLSearchParams();
-    Object.entries(selectedFilters).forEach(([key, values]) => {
-      values.forEach((value) => {
-        params.append(key, value);
+      const params = new URLSearchParams();
+      Object.entries(selectedFilters).forEach(([key, values]) => {
+        values.forEach((value) => {
+          params.append(key, value);
+        });
       });
-    });
 
-    // Añade la opción de clasificación seleccionada a los parámetros de la solicitud
-    if (selectedSortingOption) {
-      params.append('sorting', selectedSortingOption);
-    }
+      // Añade la opción de clasificación seleccionada a los parámetros de la solicitud
+      if (selectedSortingOption) {
+        params.append('sorting', selectedSortingOption);
+      }
 
-    if (searchBy) {
-      params.append('search', searchBy);
-    }
+      // if (searchBy) {
+      // }
+      params.append('search', String(searchBy));
 
-    params.append('p', String(currentPage));
-    params.append('page_size', String(pageSize));
-    params.append('max_page_size', String(maxPageSize));
+      params.append('p', String(currentPage));
+      params.append('page_size', String(pageSize));
+      params.append('max_page_size', String(maxPageSize));
 
-    try {
-      const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_APP_API_URL}/api/courses/list_paid/?${params.toString()}`,
-        config,
-      );
-      setCourses(res.data.results);
-      setCount(res.data.count);
-    } catch (error) {
-      console.error(`Error fetching courses: ${error.message}`);
-    }
-  }, [session, selectedFilters, selectedSortingOption]);
+      try {
+        const res = await axios.get(
+          `${process.env.NEXT_PUBLIC_APP_API_URL}/api/courses/list_paid/?${params.toString()}`,
+          config,
+        );
+        setCourses(res.data.results);
+        setCount(res.data.count);
+      } catch (error) {
+        console.error(`Error fetching courses: ${error.message}`);
+      }
+    },
+    [session, selectedFilters, selectedSortingOption],
+  );
 
   useEffect(() => {
     if (user) {
-      fetchCourses();
+      fetchCourses(searchBy);
     }
   }, [user, fetchCourses, selectedFilters, selectedSortingOption]);
+
+  const handleSearchCourse = async (e: any) => {
+    e.preventDefault();
+    fetchCourses(searchBy);
+  };
 
   return (
     <div>
@@ -175,6 +194,28 @@ export default function CoursesList({ categories }: PageProps) {
               <button onClick={clearFilters} type="button" className="text-gray-500">
                 Clear all
               </button>
+            </div>
+            <div className="pl-6 flex flex-1 ">
+              <form className="relative w-full" onSubmit={handleSearchCourse}>
+                <label htmlFor="search-field" className="sr-only">
+                  Search
+                </label>
+                <MagnifyingGlassIcon
+                  className="pointer-events-none  absolute inset-y-0 left-0 h-full w-5 text-gray-400"
+                  aria-hidden="true"
+                />
+                <input
+                  id="search-field"
+                  className="block h-full w-full border-0 py-0 pl-8 pr-16 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
+                  placeholder="Search..."
+                  type="search"
+                  name="searchBy"
+                  value={searchBy}
+                  onChange={(e) => {
+                    setSearchBy(e.target.value);
+                  }}
+                />
+              </form>
             </div>
           </div>
         </div>
@@ -336,7 +377,8 @@ export default function CoursesList({ categories }: PageProps) {
       <div className="mx-auto mt-16 grid max-w-2xl auto-rows-fr grid-cols-1 gap-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
         {courses?.length > 0 && courses.map((course) => <Card key={course.id} course={course} />)}
       </div>
-      <div className="my-4" />
+
+      <div className="my-8" />
       <StandardPagination
         data={courses}
         count={count}

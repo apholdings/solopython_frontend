@@ -33,7 +33,7 @@ export default function OrderSummary() {
         <div className="flex items-center justify-between">
           <dt className="text-sm dark:text-dark-txt-secondary text-gray-600">SubTotal</dt>
           <dd className="text-sm font-medium dark:text-dark-txt text-gray-900">
-            ${totalCompareCost}
+            S/ {totalCompareCost}
           </dd>
         </div>
         <div className="flex items-center justify-between border-t border-gray-200 dark:border-dark-border pt-4">
@@ -41,18 +41,20 @@ export default function OrderSummary() {
             <span>Shipping estimate</span>
           </dt>
           <dd className="text-sm font-medium dark:text-dark-txt text-gray-900">
-            ${shippingEstimate}
+            S/ {shippingEstimate}
           </dd>
         </div>
         <div className="flex items-center justify-between border-t border-gray-200 dark:border-dark-border pt-4">
           <dt className="flex text-sm dark:text-dark-txt-secondary text-gray-600">
             <span>Tax estimate</span>
           </dt>
-          <dd className="text-sm font-medium dark:text-dark-txt text-gray-900">${taxEstimate}</dd>
+          <dd className="text-sm font-medium dark:text-dark-txt text-gray-900">S/ {taxEstimate}</dd>
         </div>
         <div className="flex items-center justify-between border-t border-gray-200 dark:border-dark-border pt-4">
           <dt className="text-base font-medium dark:text-dark-txt text-gray-900">Order total</dt>
-          <dd className="text-base font-medium dark:text-dark-txt text-gray-900">${totalPrice}</dd>
+          <dd className="text-base font-medium dark:text-dark-txt text-gray-900">
+            S/ {totalPrice}
+          </dd>
         </div>
         <div className="flex items-center justify-between border-t border-gray-200 dark:border-dark-border pt-4">
           <dt className="text-base font-medium dark:text-dark-txt text-gray-900" />

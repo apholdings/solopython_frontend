@@ -1,38 +1,31 @@
 const stats = [
-  { id: 1, name: 'Suscriptores en YouTube', value: '120,000+' },
-  { id: 2, name: 'Vistas totales', value: '5M+' },
-  { id: 3, name: 'Clientes satisfechos', value: '1M+' },
-  { id: 4, name: 'Horas de contenido', value: '10,000+' },
+  { id: 2, name: 'Views', value: '10M+' },
+  { id: 1, name: 'Subscribers', value: '120K+' },
+  { id: 3, name: 'Customers', value: '100K+' },
 ];
 
 export default function Stats() {
   return (
-    <div className="bg-white py-24 sm:py-32">
+    <div className="bg-blue-500  py-24 sm:py-12">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl lg:max-w-none">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              Confiados por programadores alrededor del mundo
-            </h2>
-            <p className="mt-4 text-lg leading-8 text-gray-600">
-              Miles de estudiantes han mejorado sus habilidades en programación Python gracias a
-              nuestros cursos y tutoriales.
-            </p>
-            <p className=" text-lg leading-8 text-gray-600">
-              Únete a ellos y lleva tu codificación al siguiente nivel.
-            </p>
-          </div>
-          <dl className="mt-16 grid grid-cols-1 gap-0.5 overflow-hidden rounded-2xl text-center sm:grid-cols-2 lg:grid-cols-4">
-            {stats.map((stat) => (
-              <div key={stat.id} className="flex flex-col bg-gray-400/5 p-8">
-                <dt className="text-sm font-semibold leading-6 text-gray-600">{stat.name}</dt>
-                <dd className="order-first text-3xl font-semibold tracking-tight text-gray-900">
-                  {stat.value}
-                </dd>
-              </div>
-            ))}
-          </dl>
+        <div className="mb-12 space-y-2">
+          <h1 className="justify-center text-white flex text-4xl lg:text-5xl font-circular-bold">
+            Businesses use Python
+          </h1>
+          <p className="justify-center leading-snug flex text-4xl lg:text-5xl font-circular-medium">
+            to do and earn more
+          </p>
         </div>
+        <dl className="grid grid-cols-1 gap-x-8 gap-y-16 text-center lg:grid-cols-3">
+          {stats.map((stat) => (
+            <div key={stat.id} className="mx-auto flex max-w-xs flex-col gap-y-4">
+              <dt className="font-circular-bold leading-7 text-white">{stat.name}</dt>
+              <dd className="order-first text-4xl font-circular-medium tracking-tight text-white sm:text-6xl">
+                {stat.value}
+              </dd>
+            </div>
+          ))}
+        </dl>
       </div>
     </div>
   );

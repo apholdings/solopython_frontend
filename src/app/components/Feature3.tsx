@@ -1,3 +1,5 @@
+import Button from '@/components/Button';
+
 const features = [
   {
     name: 'Desarrollo Full Stack.',
@@ -33,26 +35,33 @@ const features = [
 
 export default function Feature3() {
   return (
-    <div className="bg-white py-24 sm:py-32">
+    <div className="overflow-hidden bg-white py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl lg:mx-0">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Plataforma integral de aprendizaje
-          </h2>
-          <p className="mt-6 text-lg leading-8 text-gray-600">
-            Todo lo que necesitas para convertirte en un experto en Python y desarrollo Full Stack
-            en un solo lugar. Aprovecha la flexibilidad de nuestros cursos online y aprende a tu
-            propio ritmo.
-          </p>
-        </div>
-        <dl className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 text-base leading-7 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-          {features.map((feature) => (
-            <div key={feature.name}>
-              <dt className="font-semibold text-gray-900">{feature.name}</dt>
-              <dd className="mt-1 text-gray-600">{feature.description}</dd>
+        <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2 items-center">
+          {' '}
+          {/* Added 'items-center' class */}
+          <div className="lg:ml-auto lg:pl-4 lg:pt-4">
+            <div className="lg:max-w-lg">
+              <p className="mt-2 text-4xl font-circular-medium tracking-tight text-gray-900 sm:text-5xl">
+                Trabaja
+              </p>
+              <p className="mt-6 text-lg font-circular-book leading-8 text-gray-600">
+                En SoloPython nuestros cursos y programas están diseñados para proporcionarte una
+                experiencia de aprendizaje práctica e interactiva.
+              </p>
+              <Button className="mt-8">Start free trial</Button>
             </div>
-          ))}
-        </dl>
+          </div>
+          <div className="flex items-start justify-end lg:order-first">
+            <img
+              src="/assets/img/placeholder/webdemo.png"
+              alt="Product screenshot"
+              className="w-[30rem] max-w-none rounded-xl shadow-xl ring-1 ring-gray-400/10 sm:w-[37rem]"
+              width={2432}
+              height={1442}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

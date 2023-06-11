@@ -5,6 +5,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import CircleLoader from 'react-spinners/CircleLoader';
 import { EnvelopeIcon } from '@heroicons/react/20/solid';
 import Button from '../Button';
+import { ToastSuccess } from '../toast/ToastSuccess';
 
 interface ForgotPasswordModalProps {
   open: boolean;
@@ -27,13 +28,28 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
 
   const onChange = (e: any) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const onSubmit = (e: any) => {
+  const onSubmit = async (e: any) => {
     e.preventDefault();
+    setLoading(true);
+    const res = await fetch('/api/forgot_password/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email,
+      }),
+    });
+
+    if (res.status === 200) {
+      ToastSuccess('Te hemos enviado un correo para recuperar tu contraseña.');
+    }
+    setLoading(false);
   };
 
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={setOpen}>
+      <Dialog as="div" className="relative z-50" onClose={setOpen}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -59,7 +75,7 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
             >
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 w-full sm:max-w-lg sm:p-6">
                 <div className="sm:mx-auto sm:w-full sm:max-w-md ">
-                  <p className="pt-8 mb-6 text-center text-lg font-bold tracking-tight text-gray-900 dark:text-dark-txt">
+                  <p className="mb-6 pt-8 text-center text-xl font-circular-bold dark:text-dark-txt">
                     Reset your password
                   </p>
                   <div className="relative">
@@ -83,18 +99,20 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
                           value={email}
                           onChange={(e) => onChange(e)}
                           required
-                          className="text-md duration block w-full border focus:ring-none focus:outline-none border-dark py-3 pl-10 font-medium shadow-neubrutalism-xs transition ease-in-out dark:bg-dark-second dark:text-dark-txt"
+                          className="text-md duration block w-full border rounded focus:ring-none focus:outline-none border-dark py-3 pl-10 font-circular-light transition ease-in-out dark:bg-dark-second dark:text-dark-txt"
                           placeholder="email@example.com"
                         />
                       </div>
 
                       <div>
                         {loading ? (
-                          <Button type="button">
+                          <Button className="w-full" type="button">
                             <CircleLoader loading={loading} size={25} color="#1c1d1f" />
                           </Button>
                         ) : (
-                          <Button type="submit">Send Email</Button>
+                          <Button className="w-full" type="submit">
+                            Send Email
+                          </Button>
                         )}
                       </div>
                       <div className="flex items-center justify-center">
@@ -107,7 +125,7 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
                               setOpenLogin(true);
                               setOpen(false);
                             }}
-                            className="text-lg font-medium text-blue-500 dark:text-dark-accent hover:text-blue-600"
+                            className="text-md font-circular-book font-dark-accent hover:text-blue-600"
                           >
                             Login to your account
                           </button>

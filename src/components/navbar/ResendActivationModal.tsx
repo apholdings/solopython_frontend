@@ -33,7 +33,7 @@ const ResendActivationModal: React.FC<ResendActivationModalProps> = ({
 
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={setOpen}>
+      <Dialog as="div" className="relative z-50" onClose={setOpen}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -59,7 +59,7 @@ const ResendActivationModal: React.FC<ResendActivationModalProps> = ({
             >
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 w-full sm:max-w-lg sm:p-6">
                 <div className="sm:mx-auto sm:w-full sm:max-w-md ">
-                  <p className="mb-6 pt-8 text-center text-lg font-bold tracking-tight text-gray-900 dark:text-dark-txt">
+                  <p className="mb-6 pt-8 text-center text-xl font-circular-bold dark:text-dark-txt">
                     Resend Activation Email
                   </p>
                   <div className="relative">
@@ -89,11 +89,13 @@ const ResendActivationModal: React.FC<ResendActivationModalProps> = ({
                       </div>
                       <div>
                         {loading ? (
-                          <Button type="button">
+                          <Button className="w-full" type="button">
                             <CircleLoader loading={loading} size={25} color="#1c1d1f" />
                           </Button>
                         ) : (
-                          <Button type="submit">Send Email</Button>
+                          <Button className="w-full" type="submit">
+                            Send Email
+                          </Button>
                         )}
                       </div>
                     </form>
@@ -108,7 +110,7 @@ const ResendActivationModal: React.FC<ResendActivationModalProps> = ({
                             setOpenLogin(true);
                             setOpen(false);
                           }}
-                          className="text-lg font-medium text-blue-500 dark:text-dark-accent underline hover:text-blue-600"
+                          className="text-md font-circular-book font-dark-accent hover:text-blue-600"
                         >
                           Login
                         </button>

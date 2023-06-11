@@ -6,15 +6,30 @@ import PaymentMethodContext from '@/context/paymentMethodContext';
 import { initMercadoPago, CardPayment } from '@mercadopago/sdk-react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import StatusBrick from './StatusBrick';
+import { fetchCartTotal } from '@/utils/api/fetchCartTotal';
 
 export default function CreditCardPayment() {
   const router = useRouter();
 
+  const [paymentId, setPaymentId] = useState<string>('');
+
   const { data: session } = useSession();
 
-  const { items, totalPrice, maticCost, totalCompareCost, taxEstimate, shippingEstimate } =
-    useContext(CartContext);
+  const {
+    items,
+    totalPrice,
+    setCartItems,
+    setTotalItems,
+    setTotalPrice,
+    setTotalCost,
+    setTotalCostEthereum,
+    setMaticCost,
+    setTotalCompareCost,
+    setTaxEstimate,
+    setShippingEstimate,
+  } = useContext(CartContext);
 
   const { value, status, setStatus } = useContext(PaymentMethodContext);
 
@@ -43,17 +58,23 @@ export default function CreditCardPayment() {
       body,
     });
 
-    const data = await res.json();
-
     if (res.status === 200) {
+      const data = await res.json();
+
       setStatus(true);
       localStorage.removeItem('cart');
       localStorage.removeItem('totalItems');
+
+      setCartItems(data.results);
+      setTotalItems(data.results.length);
+
       ToastSuccess('Payment Successful!');
+
       window.scrollTo(0, 0);
+
       setTimeout(() => {
         router.push('/library');
-      }, 5000);
+      }, 6000);
     }
   };
 
@@ -69,6 +90,12 @@ export default function CreditCardPayment() {
     */
   };
 
+  useEffect(() => {
+    return () => {
+      setStatus(false);
+    };
+  }, [setStatus]);
+
   return (
     <div>
       {value?.value === 'credit' && status === false ? (
@@ -79,7 +106,7 @@ export default function CreditCardPayment() {
           onError={onError}
         />
       ) : (
-        <div>payment successful</div>
+        <StatusBrick />
       )}
     </div>
   );

@@ -7,6 +7,7 @@ import CircleLoader from 'react-spinners/CircleLoader';
 import { EnvelopeIcon, LockClosedIcon } from '@heroicons/react/20/solid';
 import { synchCart } from '@/utils/api/synchCart';
 import CartContext from '@/context/cartContext';
+import Button from '../Button';
 
 interface LoginmodalProps {
   open: boolean;
@@ -78,7 +79,7 @@ const Loginmodal: React.FC<LoginmodalProps> = ({
 
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={setOpen}>
+      <Dialog as="div" className="relative z-50" onClose={setOpen}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -104,7 +105,7 @@ const Loginmodal: React.FC<LoginmodalProps> = ({
             >
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 w-full sm:max-w-lg sm:p-6">
                 <div className="sm:mx-auto sm:w-full sm:max-w-md ">
-                  <p className="mb-6 pt-8 text-center text-lg font-bold tracking-tight text-gray-900 dark:text-dark-txt">
+                  <p className="mb-6 pt-8 text-center text-xl font-circular-bold dark:text-dark-txt">
                     Login to your account
                   </p>
                   <div className="relative">
@@ -128,7 +129,7 @@ const Loginmodal: React.FC<LoginmodalProps> = ({
                           value={email}
                           onChange={(e) => onChange(e)}
                           required
-                          className="text-md duration block w-full border focus:ring-none focus:outline-none border-dark py-3 pl-10 font-medium shadow-neubrutalism-xs transition ease-in-out dark:bg-dark-second dark:text-dark-txt"
+                          className="text-md duration block w-full border rounded focus:ring-none focus:outline-none border-dark py-3 pl-10 font-circular-light transition ease-in-out dark:bg-dark-second dark:text-dark-txt"
                           placeholder="email@example.com"
                         />
                       </div>
@@ -143,7 +144,7 @@ const Loginmodal: React.FC<LoginmodalProps> = ({
                           value={password}
                           onChange={(e) => onChange(e)}
                           required
-                          className="text-md duration block w-full border focus:ring-none focus:outline-none border-dark py-3 pl-10 font-medium shadow-neubrutalism-xs transition ease-in-out dark:bg-dark-second dark:text-dark-txt"
+                          className="text-md duration block w-full border rounded focus:ring-none focus:outline-none border-dark py-3 pl-10 font-circular-light transition ease-in-out dark:bg-dark-second dark:text-dark-txt"
                           placeholder="Password"
                         />
                       </div>
@@ -173,61 +174,24 @@ const Loginmodal: React.FC<LoginmodalProps> = ({
 
                       <div>
                         {loading ? (
-                          <button
-                            type="button"
-                            className="text-md focus:ring-none inline-flex 
-                            w-full
-                            items-center
-                            justify-center 
-                            border
-                            border-dark-bg 
-                            bg-white dark:bg-dark-primary rounded-2xl dark:text-dark-txt
-                            px-4 
-                            py-3 
-                            text-sm 
-                            font-bold
-                            text-dark
-                            shadow-neubrutalism-sm transition
-                            duration-300
-                            ease-in-out  hover:-translate-x-0.5  hover:-translate-y-0.5  hover:bg-gray-50 hover:shadow-neubrutalism-md "
-                          >
+                          <Button type="button" className="w-full">
                             <CircleLoader loading={loading} size={25} color="#1c1d1f" />
-                          </button>
+                          </Button>
                         ) : (
-                          <button
-                            type="submit"
-                            className="
-                    text-md focus:ring-none inline-flex 
-                    w-full
-                    items-center
-                    justify-center 
-                    border
-                    border-dark-bg 
-                    bg-white dark:bg-dark-primary rounded-2xl dark:text-dark-txt
-                    px-4 
-                    py-3 
-                    text-sm 
-                    font-bold
-                    text-dark
-                    shadow-neubrutalism-sm transition
-                    duration-300
-                    ease-in-out  hover:-translate-x-0.5  hover:-translate-y-0.5  hover:bg-gray-50 hover:shadow-neubrutalism-md  "
-                          >
+                          <Button type="submit" className="w-full">
                             Login
-                          </button>
+                          </Button>
                         )}
                       </div>
                       <div className="flex items-center justify-center">
                         <div className="text-sm">
-                          <span className="text-md font-medium text-gray-900 dark:text-dark-txt">
-                            or{' '}
-                          </span>
+                          <span className="text-md font-circular-bookt-dark-txt">or </span>
                           <button
                             onClick={() => {
                               setOpenForgotPassword(true);
                               setOpen(false);
                             }}
-                            className="text-lg font-medium text-blue-500 dark:text-dark-accent hover:text-blue-600"
+                            className="text-md font-circular-book font-dark-accent hover:text-blue-600"
                           >
                             Forgot your password?
                           </button>
@@ -235,7 +199,7 @@ const Loginmodal: React.FC<LoginmodalProps> = ({
                       </div>
                       <div className="flex items-center justify-center">
                         <div className="text-sm">
-                          <span className="text-md font-base text-gray-900 dark:text-dark-txt">
+                          <span className="text-md font-circular-bookdark-txt">
                             Don&apos;t have an account?{' '}
                           </span>
                           <button
@@ -243,7 +207,7 @@ const Loginmodal: React.FC<LoginmodalProps> = ({
                               setOpenRegister(true);
                               setOpen(false);
                             }}
-                            className="nderline text-lg font-medium text-blue-500 dark:text-dark-accent hover:text-blue-600"
+                            className="underline text-lg font-circular-book font-dark-accent hover:text-blue-600"
                           >
                             Register
                           </button>

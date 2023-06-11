@@ -1,6 +1,7 @@
 'use client';
 
 import CartContext from '@/context/cartContext';
+import { fetchCartTotal } from '@/utils/api/fetchCartTotal';
 import { removeFromCart } from '@/utils/api/removeFromCart';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
@@ -23,14 +24,6 @@ export default function CartItem({ item }) {
 
   const {
     items,
-    totalItems,
-    totalPrice,
-    totalCost,
-    totalCostEthereum,
-    maticCost,
-    totalCompareCost,
-    taxEstimate,
-    shippingEstimate,
     setCartItems,
     setTotalItems,
     setTotalPrice,
@@ -47,6 +40,15 @@ export default function CartItem({ item }) {
       const res = await removeFromCart(session, id, type);
       setCartItems(res.cart);
       setTotalItems(res.total_items);
+      const resCartTotal = await fetchCartTotal(res.cart);
+
+      setTotalPrice(resCartTotal.finalPrice);
+      setTotalCost(resCartTotal.total_cost);
+      setTotalCostEthereum(resCartTotal.total_cost_ethereum);
+      setMaticCost(resCartTotal.maticCost);
+      setTotalCompareCost(resCartTotal.total_compare_cost);
+      setTaxEstimate(resCartTotal.tax_estimate);
+      setShippingEstimate(resCartTotal.shipping_estimate);
     } else {
       let cart = [];
 
@@ -55,33 +57,47 @@ export default function CartItem({ item }) {
       }
 
       // Filter out the item to be removed
-      const newCart = cart.filter((item) => item.course.id !== id);
+      const newCart = cart.filter((item) => item?.course.id !== id);
 
       // Store updated cart back in localStorage
       localStorage.setItem('cart', JSON.stringify(newCart));
       setCartItems(newCart);
       setTotalItems(newCart.length);
+      const resCartTotal = await fetchCartTotal(newCart);
+
+      setTotalPrice(resCartTotal.finalPrice);
+      setTotalCost(resCartTotal.total_cost);
+      setTotalCostEthereum(resCartTotal.total_cost_ethereum);
+      setMaticCost(resCartTotal.maticCost);
+      setTotalCompareCost(resCartTotal.total_compare_cost);
+      setTaxEstimate(resCartTotal.tax_estimate);
+      setShippingEstimate(resCartTotal.shipping_estimate);
     }
   };
 
   return (
-    <li key={item.id} className="flex py-6">
-      <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+    <li className="flex py-6">
+      <div className="flex-shrink-0">
         <img
-          src={item.course.thumbnail}
+          src={item?.course?.thumbnail}
           alt=""
-          className="h-full w-full object-cover object-center"
+          className="h-9 w-auto rounded-md object-cover object-center  sm:w-auto"
         />
       </div>
 
-      <div className="ml-4 flex flex-1 flex-col">
+      <div className="ml-4 flex flex-1 flex-col sm:ml-6">
         <div>
-          <div className="flex justify-between text-base font-medium text-gray-900">
-            <h3>
-              <Link href={item.course.slug}>{item.course.title}</Link>
-            </h3>
-            <p className="ml-4">
-              ${' '}
+          <div className="flex justify-between">
+            <h4 className="text-sm">
+              <Link
+                href={`/courses/${item?.course?.slug}`}
+                className="font-semibold text-gray-700 hover:text-gray-800"
+              >
+                {item?.course?.title}
+              </Link>
+            </h4>
+            <p className="ml-4 text-sm font-medium text-gray-900">
+              S/{' '}
               {discountedPrice ? (
                 <span>
                   <del>{item?.course?.price}</del> {discountedPrice.toFixed(2)}
@@ -91,20 +107,32 @@ export default function CartItem({ item }) {
               )}
             </p>
           </div>
-          {item?.coupon && <p className="mt-1 text-sm text-gray-500">Coupon: {item.coupon.name}</p>}
+          <p className="mt-1 text-sm font-medium text-gray-500">{item?.course?.category}</p>
+          <p className="mt-1 text-sm text-gray-500">{item?.course?.short_description}</p>
         </div>
-        <div className="flex flex-1 items-end justify-between text-sm">
-          {/* <p className="text-gray-500">Qty {item.quantity}</p> */}
 
-          <div className="flex">
+        <div className="mt-4 flex flex-1 items-end justify-between">
+          <div className="flex items-center space-x-2 text-sm text-gray-700">
+            {item?.course?.best_seller ? (
+              <span className="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">
+                Best Seller
+              </span>
+            ) : (
+              <div />
+            )}
+
+            {/* <span>
+                        {tier.inStock ? 'In stock' : `Will ship in ${product.leadTime}`}
+                      </span> */}
+          </div>
+          <div className="ml-4">
             <button
-              type="button"
               onClick={() => {
-                handleRemoveItem(item.course.id, 'Course');
+                handleRemoveItem(item?.course?.id, 'Course');
               }}
-              className="font-medium text-blue-600 hover:text-blue-500"
+              className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
             >
-              Remove
+              <span>Remove</span>
             </button>
           </div>
         </div>
